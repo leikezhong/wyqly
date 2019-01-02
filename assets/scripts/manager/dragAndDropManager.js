@@ -57,10 +57,8 @@ cc.Class({
             this.nowDADItem.position = this.nowDADItemStartPos;
             this.nowDADItem = null;
         }else{
-            console.log("111111");
             this.collisionItem1.active = false;
             this.collisionItem2.active = false;
-            console.log("222222");
         }
     }
 });

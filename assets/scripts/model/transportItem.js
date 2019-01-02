@@ -26,7 +26,7 @@ cc.Class({
         // var p = world.position;
         // // 以下属性为 矩形 和 多边形 碰撞组件特有属性
         // var ps = world.points;
-        battle.dragAndDropManager.setCollisionDADItem(other, self);
+        battle.dragAndDropManager.setCollisionDADItem(other.node, self.node);
     },
     /**
      * 当碰撞产生后，碰撞结束前的情况下，每次计算碰撞结果后调用
@@ -43,6 +43,6 @@ cc.Class({
      */
     onCollisionExit: function (other, self) {
         // console.log('on collision exit');
-        battle.dragAndDropManager.setCollisionDADItem(null, null);
+        battle.dragAndDropManager.setCollisionDADItem(other.node, self.node);
     }
 });
