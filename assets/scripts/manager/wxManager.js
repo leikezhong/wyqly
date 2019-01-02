@@ -1,46 +1,34 @@
 cc.Class({
     init:function(){
         // console.log("---init wxManager---");
-        if(!CC_WECHATGAME)  return;
-        this.systemInfo = null;
-        this.userInfo = null;
-
-        this.initCloud();
-        this.initStorage();
-        this.initLocation();
-    },
-
-    initCloud:function(){
-        wx.cloud.init({
-            env: 'test-9bdb94'
-        });
-
-        this.db = wx.cloud.database();
-
-        // db.collection('score').where({
-            
-        // }).get({
-        //     success(res) {
-        //         console.log(res.data)
-        //     }
-        // });
+        this.systemInfo = {};
+        this.userInfo = {};
     },
 
     initStorage:function(){
+        var self = this;
         wx.getStorage({
-            key: 'key',
+            key: 'isInit',
             success(res) {
-                console.log(res.data)
+                console.log("already init!");
+                // console.log(res.data);
+                battle.wxStorageManager.getFirstStorage(self.getLocalStorage.bind(self));
+            },
+            fail(res){
+                console.log("not init!");
+                battle.wxCloudManager.getCloudInitInfo();
+                // console.log(res.data);
             }
-        })
-
-        wx.setStorage({
-            key: 'key',
-            data: 'value'
-        })
+        });
     },
 
-    initLocation:function(){
+    getCloudStorage:function(res){
+        console.log("get cloud storage!");
+        battle.wxStorageManager.analysisCloudInfo(res);
+        battle.mainScene.initComplete();
+    },
 
+    getLocalStorage:function(){
+        battle.mainScene.initComplete();
     }
 });

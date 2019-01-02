@@ -17,7 +17,12 @@ cc.Class({
     
     initManager:function(){
         this.allManager = [
-            "wxManager"
+            "battleManager",
+            "wxManager",
+            "wxCloudManager",
+            "wxStorageManager",
+            "uiManager",
+            "dragAndDropManager"
         ];
 
         for(let i = 0; i < this.allManager.length; i++){
@@ -117,6 +122,8 @@ cc.Class({
     },
 
     nextStartGame:function(){
+        battle.wxManager.userInfo.avatarUrl = "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0";
+        battle.wxManager.userInfo.nickName = "测试";
         cc.director.loadScene("mainScene");
     }
 

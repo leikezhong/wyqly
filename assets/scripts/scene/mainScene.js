@@ -3,21 +3,50 @@ cc.Class({
 
     properties: {
         wxHead:cc.Sprite,
-        wxName:cc.Label
+        wxName:cc.Label,
+        maxMeter:cc.Label,
+        nowSpeed:cc.Label,
+        transportLayer:cc.Node
     },
 
     onLoad () {
+        battle.mainScene = this;
+        this.initWXInfo();
         if(CC_WECHATGAME){
-            var self = this;
-            cc.loader.load({url: battle.wxManager.userInfo.avatarUrl, type: 'jpg'},
-                function (err, texture) {
-                    self.wxHead.spriteFrame = new cc.SpriteFrame(texture);
-                    self.wxHead.node.width = 60;
-                    self.wxHead.node.height = 60;
-                }
-            );
-            this.wxName.string = battle.wxManager.userInfo.nickName;
+            this.init();
+        }else{
+            this.initLocal();
         }
+    },
+
+    init:function(){
+        this.initAllInfo();
+    },
+
+    initWXInfo:function(){
+        var self = this;
+        cc.loader.load({url: battle.wxManager.userInfo.avatarUrl, type: 'jpg'},
+            function (err, texture) {
+                self.wxHead.spriteFrame = new cc.SpriteFrame(texture);
+                self.wxHead.node.width = 60;
+                self.wxHead.node.height = 60;
+            }
+        );
+        this.wxName.string = battle.wxManager.userInfo.nickName;
+    },
+
+    initAllInfo:function(){
+        battle.wxManager.initStorage();
+    },
+
+    initComplete:function(){
+        console.log("init complete");
+        battle.battleManager.initBattle();
+    },
+
+    initLocal:function(){
+        battle.wxStorageManager.initLocalStorage();
+        battle.battleManager.initBattle();
     },
 
     startShareFunc:function(){
@@ -45,7 +74,11 @@ cc.Class({
                 }
             });
         }
-    }
+    },
 
-    // update (dt) {},
+    update (dt) {
+        if(battle.battleManager){
+            battle.battleManager.step();
+        }
+    },
 });
