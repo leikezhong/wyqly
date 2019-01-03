@@ -6,7 +6,9 @@ cc.Class({
         wxName:cc.Label,
         maxMeter:cc.Label,
         nowSpeed:cc.Label,
-        transportLayer:cc.Node
+        nowCoins:cc.Label,
+        transportLayer:cc.Node,
+        buyTransportBtn:cc.Node
     },
 
     onLoad () {
@@ -47,6 +49,10 @@ cc.Class({
     initLocal:function(){
         battle.wxStorageManager.initLocalStorage();
         battle.battleManager.initBattle();
+    },
+
+    buyTransportFunc:function(){
+        battle.battleManager.buyTransport();
     },
 
     startShareFunc:function(){

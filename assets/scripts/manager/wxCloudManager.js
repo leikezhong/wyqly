@@ -59,7 +59,7 @@ cc.Class({
         var self = this;
         this.nowCollection.add({
             // data 字段表示需新增的 JSON 数据
-            data: self.getInitDataInfo(),
+            data: battle.wxStorageManager.getInitDataStorage(),
             success(res) {
                 // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
                 console.log("add info success!");
@@ -68,20 +68,6 @@ cc.Class({
             }
         });
     },
-
-    getInitDataInfo:function(){
-        let data = {
-            nowMaxMeter:0,
-            nowCoins:0,
-            nowSpeed:1,
-            nextCityIndex:-1,
-            nowMaxLevel:0,
-            nowAllItems:[],
-            nowTravelCity:[],
-            lastLoginTime:0
-        };
-        return data;
-    }
 
     // getCityAddress:function(){
     //     var self = this;

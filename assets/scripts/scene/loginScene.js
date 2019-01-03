@@ -11,13 +11,16 @@ cc.Class({
 
     onLoad () {
         this.initManager();
-        this.initUI();
         this.initWX();
+        this.initResource();
     },
     
     initManager:function(){
         this.allManager = [
+            "configManager",
+            "resourceManager",
             "battleManager",
+            "adventureManager",
             "wxManager",
             "wxCloudManager",
             "wxStorageManager",
@@ -32,8 +35,12 @@ cc.Class({
         }
     },
 
-    initUI:function(){
+    initResource:function(){
         this.uiLayer.active = false;
+        battle.resourceManager.loadResource(this.initUI.bind(this));
+    },
+
+    initUI:function(){
         var self = this;
         cc.director.preloadScene("mainScene",
             function(completedCount, totalCount, item){

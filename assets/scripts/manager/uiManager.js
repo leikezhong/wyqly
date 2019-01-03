@@ -6,6 +6,7 @@ cc.Class({
     initUI:function(){
         this.setMaxMeter();
         this.setNowSpeed();
+        this.setNowCoins();
     },
 
     setMaxMeter:function(){
@@ -14,5 +15,9 @@ cc.Class({
 
     setNowSpeed:function(){
         battle.mainScene.nowSpeed.string = "speed:" + battle.wxStorageManager.nowSpeed + "m/s";
+    },
+
+    setNowCoins:function(){
+        battle.mainScene.nowCoins.string = "coins:" + battle.wxStorageManager.nowCoins;
     }
 });
