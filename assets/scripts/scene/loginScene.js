@@ -19,6 +19,7 @@ cc.Class({
         this.allManager = [
             "configManager",
             "resourceManager",
+            "layerManager",
             "battleManager",
             "adventureManager",
             "wxManager",

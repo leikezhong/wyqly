@@ -79,6 +79,13 @@ cc.Class({
         this.analysisMaxLevel();
     },
 
+    changeCoins:function(addCoins){
+        this.nowCoins += addCoins;
+        this.allCoins += addCoins;
+        this.setStorage("allCoins");
+        this.setStorage("nowCoins");
+    },
+
     analysisMaxLevel:function(){
         for(let i = 0; i < this.nowAllItems.length; i++){
             if(this.nowMaxLevel  < this.nowAllItems[i]){

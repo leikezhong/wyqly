@@ -20,15 +20,15 @@ cc.Class({
             let adventureIndex = Math.floor(Math.random() * this.allAdventure.length);
             let nowAdventure = this.allAdventure[adventureIndex];
             this.allAdventure.splice(adventureIndex, 1);
-            let adventureInfo = cc.instantiate(cc.loader.getRes("prefab/uiAdventureInfo"));
+            let adventureInfo = cc.instantiate(cc.loader.getRes("prefab/info/uiAdventureInfo"));
             adventureInfo.uiAdventureInfo = adventureInfo.getComponent("uiAdventureInfo");
-            adventureInfo.uiAdventureInfo.setTravelInfo(nowAdventure);
-            adventureInfo.parent = battle.mainScene.node;
+            battle.layerManager.bottomTipLayer.addChild(adventureInfo);
 
             adventureIndex = battle.configManager.allAdventure.indexOf(nowAdventure);
             battle.wxStorageManager.nowAdventure.push(adventureIndex);
             battle.wxStorageManager.nowAdventure.sort(this.sortNumber);
             battle.wxStorageManager.setStorage("allAdventure");
+            adventureInfo.uiAdventureInfo.setAdventureInfo(battle.configManager.allAdventure[adventureIndex], battle.configManager.allAdventureContent[adventureIndex]);
             // console.log(battle.wxStorageManager.nowAdventure);
         }
     },

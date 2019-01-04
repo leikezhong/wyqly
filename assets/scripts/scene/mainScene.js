@@ -7,13 +7,16 @@ cc.Class({
         maxMeter:cc.Label,
         nowSpeed:cc.Label,
         nowCoins:cc.Label,
+        coinsSpeed:cc.Label,
         transportLayer:cc.Node,
-        buyTransportBtn:cc.Node
+        buyTransportBtn:cc.Node,
+        uiLayer:cc.Node
     },
 
     onLoad () {
         battle.mainScene = this;
         this.initWXInfo();
+        battle.layerManager.initAllLayer(this);
         if(CC_WECHATGAME){
             this.init();
         }else{
@@ -53,6 +56,10 @@ cc.Class({
 
     buyTransportFunc:function(){
         battle.battleManager.buyTransport();
+    },
+
+    showAdventureSystemFunc:function(){
+        battle.uiManager.showUI("uiAdventureSystem", "system");
     },
 
     startShareFunc:function(){

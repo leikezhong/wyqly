@@ -2,6 +2,7 @@ cc.Class({
     init:function(){
         // console.log("---init battleManager---");
         this.allTravelCity = battle.configManager.allTravelCity;
+        this.allTravelCityContent = battle.configManager.allTravelCityContent;
         this.allTravelMeter = battle.configManager.allTravelMeter;
         this.battleFrameCount = 0;
         this.battleSecondCount = 0;
@@ -12,14 +13,38 @@ cc.Class({
         battle.adventureManager.initAdventure();
         battle.uiManager.initUI();
         battle.dragAndDropManager.initDAD();
+
+        this.initCoinsSpeed();
+    },
+
+    initCoinsSpeed:function(){
+        let addCoins = 0;
+        for(let i = 0; i < battle.wxStorageManager.nowAllItems.length; i++){
+            addCoins +=battle.configManager.allTransportCoins[battle.wxStorageManager.nowAllItems[i] - 1];
+        }
+        battle.uiManager.setCoinsSpeed(addCoins);
     },
 
     buyTransport:function(){
         if(battle.wxStorageManager.nowAllItems.length < 16){
-            battle.dragAndDropManager.addADAItem(1);
-            battle.wxStorageManager.addItem(1);
+            let itemLevel = battle.wxStorageManager.nowMaxLevel - 4;
+            if(itemLevel < 1){
+                itemLevel = 1;
+            }
+            if(battle.wxStorageManager.nowCoins >= battle.configManager.allTransportCost[itemLevel - 1]){
+                battle.dragAndDropManager.addADAItem(itemLevel);
+                battle.wxStorageManager.addItem(itemLevel);
+                battle.wxStorageManager.nowCoins -= battle.configManager.allTransportCost[itemLevel - 1];
+                battle.wxStorageManager.setStorage("nowCoins");
+                battle.uiManager.setNowCoins();
+            }else{
+                battle.uiManager.showUI("uiGetCoinsInfo", "info");
+                // battle.uiManager.showFloatTip("coins not enough!");
+                console.log("coins not enough!");
+            }
         }else{
-            console.log("already enough!");
+            battle.uiManager.showFloatTip("amount already enough!");
+            console.log("amount already enough!");
         }
     },
 
@@ -66,23 +91,22 @@ cc.Class({
             console.log("nowMaxMeter:" + battle.wxStorageManager.nowMaxMeter);
             console.log("nowTravel:" + this.allTravelCity[battle.wxStorageManager.nextTravelIndex]);
 
-            let travelInfo = cc.instantiate(cc.loader.getRes("prefab/uiTravelInfo"));
+            let travelInfo = cc.instantiate(cc.loader.getRes("prefab/info/uiTravelInfo"));
             travelInfo.uiTravelInfo = travelInfo.getComponent("uiTravelInfo");
-            travelInfo.uiTravelInfo.setTravelInfo(this.allTravelCity[battle.wxStorageManager.nextTravelIndex]);
-            travelInfo.parent = battle.mainScene.node;
+            travelInfo.uiTravelInfo.setTravelInfo(this.allTravelCity[battle.wxStorageManager.nextTravelIndex], this.allTravelCityContent[battle.wxStorageManager.nextTravelIndex]);
+            battle.layerManager.bottomTipLayer.addChild(travelInfo);
         }
     },
 
+    //每秒增加金币
     addCoinsStep:function(){
         let addCoins = 0;
         for(let i = 0; i < battle.wxStorageManager.nowAllItems.length; i++){
-            addCoins +=battle.configManager.allTransportCoins[battle.wxStorageManager.nowAllItems[i] - 1];
+            addCoins += battle.configManager.allTransportCoins[battle.wxStorageManager.nowAllItems[i] - 1];
         }
-        battle.wxStorageManager.nowCoins += addCoins;
-        battle.wxStorageManager.allCoins += addCoins;
-        battle.wxStorageManager.setStorage("allCoins");
-        battle.wxStorageManager.setStorage("nowCoins");
+        battle.wxStorageManager.changeCoins(addCoins);
         battle.uiManager.setNowCoins();
+        battle.uiManager.setCoinsSpeed(addCoins);
     },
 
     //每分
