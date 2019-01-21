@@ -26,6 +26,7 @@ cc.Class({
 
     init:function(){
         this.initAllInfo();
+        this.initEvent();
     },
 
     initWXInfo:function(){
@@ -38,6 +39,18 @@ cc.Class({
             }
         );
         this.wxName.string = battle.wxManager.userInfo.nickName;
+    },
+
+    initEvent:function(){
+        //加载完成
+        NOTIFICATION.on(EVENT.INIT_COMPLETE, this.initComplete.bind(this));
+
+        //更新ui
+        NOTIFICATION.on(EVENT.UPDATE_MAX_METER, this.updateMaxMeter.bind(this));
+        NOTIFICATION.on(EVENT.UPDATE_NOW_SPEED, this.updateNowSpeed.bind(this));
+        NOTIFICATION.on(EVENT.UPDATE_NOW_COINS, this.updateNowCoins.bind(this));
+        NOTIFICATION.on(EVENT.UPDATE_COINS_SPEED, this.updateCoinsSpeed.bind(this));
+        NOTIFICATION.on(EVENT.UPDATE_ALL_INFO, this.updateAllInfo.bind(this));
     },
 
     initAllInfo:function(){
@@ -60,6 +73,29 @@ cc.Class({
 
     showAdventureSystemFunc:function(){
         battle.uiManager.showUI("uiAdventureSystem", "system");
+    },
+
+    updateMaxMeter:function(){
+        this.maxMeter.string = "maxMeter:" + battle.wxStorageManager.nowMaxMeter + "m";
+    },
+
+    updateNowSpeed:function(){
+        this.nowSpeed.string = "speed:" + battle.wxStorageManager.nowSpeed + "m/s";
+    },
+
+    updateNowCoins:function(){
+        this.nowCoins.string = "coins:" + battle.wxStorageManager.nowCoins;
+    },
+
+    updateCoinsSpeed:function(){
+        this.coinsSpeed.string = "coinsSpeed:" + battle.battleManager.battleSecondCoins + "/s";
+    },
+
+    updateAllInfo:function(){
+        this.updateMaxMeter();
+        this.updateNowSpeed();
+        this.updateNowCoins();
+        this.updateCoinsSpeed();
     },
 
     startShareFunc:function(){

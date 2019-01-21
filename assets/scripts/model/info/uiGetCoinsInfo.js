@@ -24,7 +24,7 @@ cc.Class({
 
     getCoinsFunc:function(event){
         battle.wxStorageManager.changeCoins(this._getCoinsNum);
-        battle.uiManager.setNowCoins();
+        NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
         this.setHide();
     }
 });

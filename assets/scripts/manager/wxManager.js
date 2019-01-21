@@ -25,10 +25,10 @@ cc.Class({
     getCloudStorage:function(res){
         console.log("get cloud storage!");
         battle.wxStorageManager.analysisCloudInfo(res);
-        battle.mainScene.initComplete();
+        NOTIFICATION.emit(EVENT.INIT_COMPLETE);
     },
 
     getLocalStorage:function(){
-        battle.mainScene.initComplete();
+        NOTIFICATION.emit(EVENT.INIT_COMPLETE);
     }
 });

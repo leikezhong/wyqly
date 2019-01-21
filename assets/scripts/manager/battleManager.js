@@ -7,6 +7,7 @@ cc.Class({
         this.battleFrameCount = 0;
         this.battleSecondCount = 0;
         this.battleMinuteCount = 0;
+        this.battleSecondCoins = 0;
     },
 
     initBattle:function(){
@@ -22,9 +23,11 @@ cc.Class({
         for(let i = 0; i < battle.wxStorageManager.nowAllItems.length; i++){
             addCoins +=battle.configManager.allTransportCoins[battle.wxStorageManager.nowAllItems[i] - 1];
         }
-        battle.uiManager.setCoinsSpeed(addCoins);
+        this.battleSecondCoins = addCoins;
+        NOTIFICATION.emit(EVENT.UPDATE_COINS_SPEED);
     },
 
+    //购买
     buyTransport:function(){
         if(battle.wxStorageManager.nowAllItems.length < 16){
             let itemLevel = battle.wxStorageManager.nowMaxLevel - 4;
@@ -34,9 +37,8 @@ cc.Class({
             if(battle.wxStorageManager.nowCoins >= battle.configManager.allTransportCost[itemLevel - 1]){
                 battle.dragAndDropManager.addADAItem(itemLevel);
                 battle.wxStorageManager.addItem(itemLevel);
-                battle.wxStorageManager.nowCoins -= battle.configManager.allTransportCost[itemLevel - 1];
-                battle.wxStorageManager.setStorage("nowCoins");
-                battle.uiManager.setNowCoins();
+                battle.wxStorageManager.changeCoins(-battle.configManager.allTransportCost[itemLevel - 1]);
+                NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
             }else{
                 battle.uiManager.showUI("uiGetCoinsInfo", "info");
                 // battle.uiManager.showFloatTip("coins not enough!");
@@ -73,9 +75,8 @@ cc.Class({
     },
 
     maxMeterStep:function(){
-        battle.wxStorageManager.nowMaxMeter += battle.wxStorageManager.nowSpeed;
-        battle.wxStorageManager.setStorage("nowMaxMeter");
-        battle.uiManager.setMaxMeter();
+        battle.wxStorageManager.changeStorageValue("nowMaxMeter", battle.wxStorageManager.nowSpeed);
+        NOTIFICATION.emit(EVENT.UPDATE_MAX_METER);
 
         let nowIndex = battle.wxStorageManager.nextTravelIndex;
         for(let i = nowIndex; i < this.allTravelMeter.length; i++){
@@ -86,8 +87,7 @@ cc.Class({
             }
         }
         if(nowIndex > battle.wxStorageManager.nextTravelIndex){
-            battle.wxStorageManager.nextTravelIndex = nowIndex;
-            battle.wxStorageManager.setStorage("nextTravelIndex");
+            battle.wxStorageManager.setStorageValue("nextTravelIndex", nowIndex);
             console.log("nowMaxMeter:" + battle.wxStorageManager.nowMaxMeter);
             console.log("nowTravel:" + this.allTravelCity[battle.wxStorageManager.nextTravelIndex]);
 
@@ -104,9 +104,10 @@ cc.Class({
         for(let i = 0; i < battle.wxStorageManager.nowAllItems.length; i++){
             addCoins += battle.configManager.allTransportCoins[battle.wxStorageManager.nowAllItems[i] - 1];
         }
+        this.battleSecondCoins = addCoins;
         battle.wxStorageManager.changeCoins(addCoins);
-        battle.uiManager.setNowCoins();
-        battle.uiManager.setCoinsSpeed(addCoins);
+        NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
+        NOTIFICATION.emit(EVENT.UPDATE_COINS_SPEED);
     },
 
     //每分

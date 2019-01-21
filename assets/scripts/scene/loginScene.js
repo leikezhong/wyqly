@@ -18,6 +18,7 @@ cc.Class({
     initManager:function(){
         this.allManager = [
             "configManager",
+            "jsonManager",
             "resourceManager",
             "layerManager",
             "battleManager",
@@ -26,7 +27,9 @@ cc.Class({
             "wxCloudManager",
             "wxStorageManager",
             "uiManager",
-            "dragAndDropManager"
+            "dragAndDropManager",
+            "exploreManager",
+            "foodManager"
         ];
 
         for(let i = 0; i < this.allManager.length; i++){
@@ -38,23 +41,24 @@ cc.Class({
 
     initResource:function(){
         this.uiLayer.active = false;
-        battle.resourceManager.loadResource(this.initUI.bind(this));
+        this.isOnLoading = true;
+        battle.resourceManager.loadResource(this.onLoadComplete.bind(this));
     },
 
-    initUI:function(){
-        var self = this;
-        cc.director.preloadScene("mainScene",
-            function(completedCount, totalCount, item){
-                var percent = (completedCount / totalCount).toFixed(2);
-                self.progressBar.getComponent(cc.ProgressBar).progress = percent;
-                // console.log(percent);
-            }, 
-            function () {
-                console.log("mainScene preload complete!");
-                self.onLoadComplete();
-            }
-        );
-    },
+    //initUI:function(){
+    //    var self = this;
+    //    cc.director.preloadScene("mainScene",
+    //        function(completedCount, totalCount, item){
+    //            var percent = (completedCount / totalCount).toFixed(2);
+    //            self.progressBar.getComponent(cc.ProgressBar).progress = percent;
+    //            // console.log(percent);
+    //        },
+    //        function () {
+    //            console.log("mainScene preload complete!");
+    //            self.onLoadComplete();
+    //        }
+    //    );
+    //},
 
     initWX:function(){
         if(CC_WECHATGAME){
@@ -69,6 +73,7 @@ cc.Class({
     },
 
     onLoadComplete:function(){
+        this.isOnLoading = false;
         this.progressLayer.active = false;
         this.uiLayer.active = true;
     },
@@ -130,10 +135,16 @@ cc.Class({
     },
 
     nextStartGame:function(){
-        battle.wxManager.userInfo.avatarUrl = "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0";
-        battle.wxManager.userInfo.nickName = "测试";
+        if(!CC_WECHATGAME){
+            battle.wxManager.userInfo.avatarUrl = "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0";
+            battle.wxManager.userInfo.nickName = "测试";
+        }
         cc.director.loadScene("mainScene");
-    }
+    },
 
-    // update (dt) {},
+    update (dt) {
+        if(this.isOnLoading){
+            this.progressBar.getComponent(cc.ProgressBar).progress = (battle.resourceManager.nowProgressNum / battle.resourceManager.nowProgressTotal).toFixed(2);
+        }
+    }
 });
