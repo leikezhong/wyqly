@@ -12,7 +12,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "adventureItem",
+    "_name": "uiLoading",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -20,16 +20,12 @@
         "__id__": 2
       },
       {
-        "__id__": 5
+        "__id__": 6
       }
     ],
     "_active": true,
     "_level": 1,
-    "_components": [
-      {
-        "__id__": 8
-      }
-    ],
+    "_components": [],
     "_prefab": {
       "__id__": 9
     },
@@ -43,8 +39,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 100
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -80,7 +76,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "adventureSp",
+    "_name": "bg",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -91,12 +87,15 @@
     "_components": [
       {
         "__id__": 3
+      },
+      {
+        "__id__": 4
       }
     ],
     "_prefab": {
-      "__id__": 4
+      "__id__": 5
     },
-    "_opacity": 255,
+    "_opacity": 0,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -106,8 +105,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 36
+      "width": 720,
+      "height": 1280
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -117,7 +116,7 @@
     "_position": {
       "__type__": "cc.Vec3",
       "x": 0,
-      "y": 6,
+      "y": 0,
       "z": 0
     },
     "_scale": {
@@ -152,10 +151,10 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "8cdb44ac-a3f6-449f-b354-7cd48cf84061"
+      "__uuid__": "a23235d1-15db-4b95-8439-a2e005bfff91"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",
@@ -170,19 +169,29 @@
     "_id": ""
   },
   {
+    "__type__": "cc.BlockInputEvents",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 2
+    },
+    "_enabled": true,
+    "_id": ""
+  },
+  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6e8205ce-6e0f-4320-bc64-c38c6a48369c"
+      "__uuid__": "4c9d1578-ec59-4630-b5d4-a78a62b05fc2"
     },
-    "fileId": "3btKEAqMNDP4A6mmvJRTiw",
+    "fileId": "7ebyYslm5JrLYNRzGWqbfN",
     "sync": false
   },
   {
     "__type__": "cc.Node",
-    "_name": "adventureTitle",
+    "_name": "loading",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -192,11 +201,11 @@
     "_level": 2,
     "_components": [
       {
-        "__id__": 6
+        "__id__": 7
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 8
     },
     "_opacity": 255,
     "_color": {
@@ -208,7 +217,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
+      "width": 142.36,
       "height": 40
     },
     "_anchorPoint": {
@@ -218,8 +227,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -31,
+      "x": 8,
+      "y": 5,
       "z": 0
     },
     "_scale": {
@@ -248,15 +257,15 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 5
+      "__id__": 6
     },
     "_enabled": true,
     "_srcBlendFactor": 1,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "Label",
-    "_N$string": "Label",
-    "_fontSize": 25,
+    "_string": "Loading",
+    "_N$string": "Loading",
+    "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
     "_N$file": null,
@@ -266,7 +275,7 @@
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
-    "_N$overflow": 1,
+    "_N$overflow": 0,
     "_id": ""
   },
   {
@@ -275,37 +284,20 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6e8205ce-6e0f-4320-bc64-c38c6a48369c"
+      "__uuid__": "4c9d1578-ec59-4630-b5d4-a78a62b05fc2"
     },
-    "fileId": "7edSjV1MVNdpTifU4+KkTN",
+    "fileId": "94FUTOrRtPCKLLV9URl8a5",
     "sync": false
   },
   {
-    "__type__": "aed77sX8rVD6aHeCW4/JEn1",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_isShow": true,
-    "adventureSp": {
-      "__id__": 3
-    },
-    "adventureTitle": {
-      "__id__": 6
-    },
-    "_id": ""
-  },
-  {
     "__type__": "cc.PrefabInfo",
     "root": {
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "6e8205ce-6e0f-4320-bc64-c38c6a48369c"
+      "__uuid__": "4c9d1578-ec59-4630-b5d4-a78a62b05fc2"
     },
-    "fileId": "f8hSZpWMtCb7ZgJNNWSA+f",
+    "fileId": "56utdxJIxAWIX6G2XbgVZF",
     "sync": false
   }
 ]

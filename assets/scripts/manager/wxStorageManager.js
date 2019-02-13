@@ -10,6 +10,7 @@ cc.Class({
         this.nowTravelCity = [];
         this.nowAdventure = [];
         this.lastLoginTime = 0;
+        this.nowFood = [];
         this.initStorageName = [
             "nowMaxMeter", "allCoins", "nowCoins", "nowSpeed",
             "nextTravelIndex", "nowMaxLevel", "lastLoginTime", "nowAllItems",

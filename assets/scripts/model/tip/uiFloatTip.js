@@ -1,4 +1,3 @@
-let uiBase = require("uiBase");
 cc.Class({
     extends: uiBase,
 

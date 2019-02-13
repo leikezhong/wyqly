@@ -13,9 +13,31 @@ cc.Class({
     initBattle:function(){
         battle.adventureManager.initAdventure();
         battle.uiManager.initUI();
-        battle.dragAndDropManager.initDAD();
-
+        this.initMap();
+        this.initChar();
+        //battle.dragAndDropManager.initDAD();
         this.initCoinsSpeed();
+    },
+
+    initMap: function () {
+        this.maps = [];
+        this.mapSpeed = 1;
+        for(let i = 0; i < 3; ++i){
+            let mapNode = new cc.Node();
+            mapNode.setAnchorPoint(0, 0);
+            battle.layerManager.bgLayer.addChild(mapNode);
+            let mapSp = mapNode.addComponent(cc.Sprite);
+            utils.setSpriteFrame("map/map_1", mapSp, function () {
+                mapNode.x = i * mapNode.width;
+            });
+            this.maps.push(mapNode);
+        }
+    },
+
+    initChar: function () {
+        this.mainChar = cc.instantiate(battle.mainScene.charPrefab);
+        this.mainChar.setPosition(300, 200);
+        battle.layerManager.charLayer.addChild(this.mainChar);
     },
 
     initCoinsSpeed:function(){
@@ -29,25 +51,26 @@ cc.Class({
 
     //购买
     buyTransport:function(){
-        if(battle.wxStorageManager.nowAllItems.length < 16){
-            let itemLevel = battle.wxStorageManager.nowMaxLevel - 4;
-            if(itemLevel < 1){
-                itemLevel = 1;
-            }
-            if(battle.wxStorageManager.nowCoins >= battle.configManager.allTransportCost[itemLevel - 1]){
-                battle.dragAndDropManager.addADAItem(itemLevel);
-                battle.wxStorageManager.addItem(itemLevel);
-                battle.wxStorageManager.changeCoins(-battle.configManager.allTransportCost[itemLevel - 1]);
-                NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
-            }else{
-                battle.uiManager.showUI("uiGetCoinsInfo", "info");
-                // battle.uiManager.showFloatTip("coins not enough!");
-                console.log("coins not enough!");
-            }
-        }else{
-            battle.uiManager.showFloatTip("amount already enough!");
-            console.log("amount already enough!");
-        }
+
+        //if(battle.wxStorageManager.nowAllItems.length < 16){
+        //    let itemLevel = battle.wxStorageManager.nowMaxLevel - 4;
+        //    if(itemLevel < 1){
+        //        itemLevel = 1;
+        //    }
+        //    if(battle.wxStorageManager.nowCoins >= battle.configManager.allTransportCost[itemLevel - 1]){
+        //        battle.dragAndDropManager.addADAItem(itemLevel);
+        //        battle.wxStorageManager.addItem(itemLevel);
+        //        battle.wxStorageManager.changeCoins(-battle.configManager.allTransportCost[itemLevel - 1]);
+        //        NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
+        //    }else{
+        //        battle.uiManager.showUI("uiGetCoinsInfo", "info", battle.layerManager.normalLayer);
+        //        // battle.uiManager.showFloatTip("coins not enough!");
+        //        console.log("coins not enough!");
+        //    }
+        //}else{
+        //    battle.uiManager.showFloatTip("amount already enough!");
+        //    console.log("amount already enough!");
+        //}
     },
 
     mergeTransport:function(level){
@@ -59,8 +82,24 @@ cc.Class({
 
     step:function(){
         this.battleFrameCount++;
+        this.mapMoveStep();
         if(this.battleFrameCount % 60 == 0){
             this.secondStep();
+        }
+    },
+
+    mapMoveStep: function () {
+        for(let i = this.maps.length - 1; i >= 0; --i){
+            this.maps[i].x -= this.mapSpeed;
+        }
+
+        //第一张图
+        if(this.maps.length > 0) {
+            if (this.maps[0].x < -this.maps[0].width - 100) {
+                let map = this.maps.splice(0, 1)[0];
+                map.x = this.maps[this.maps.length - 1].x + this.maps[this.maps.length - 1].width;
+                this.maps.push(map);
+            }
         }
     },
 
@@ -76,6 +115,7 @@ cc.Class({
 
     maxMeterStep:function(){
         battle.wxStorageManager.changeStorageValue("nowMaxMeter", battle.wxStorageManager.nowSpeed);
+
         NOTIFICATION.emit(EVENT.UPDATE_MAX_METER);
 
         let nowIndex = battle.wxStorageManager.nextTravelIndex;
@@ -91,10 +131,11 @@ cc.Class({
             console.log("nowMaxMeter:" + battle.wxStorageManager.nowMaxMeter);
             console.log("nowTravel:" + this.allTravelCity[battle.wxStorageManager.nextTravelIndex]);
 
-            let travelInfo = cc.instantiate(cc.loader.getRes("prefab/info/uiTravelInfo"));
-            travelInfo.uiTravelInfo = travelInfo.getComponent("uiTravelInfo");
-            travelInfo.uiTravelInfo.setTravelInfo(this.allTravelCity[battle.wxStorageManager.nextTravelIndex], this.allTravelCityContent[battle.wxStorageManager.nextTravelIndex]);
-            battle.layerManager.bottomTipLayer.addChild(travelInfo);
+            let self = this;
+            battle.uiManager.showUI("uiTravelInfo", "info", battle.layerManager.normalLayer, function (node) {
+                node.uiTravelInfo.setTravelInfo(self.allTravelCity[battle.wxStorageManager.nextTravelIndex], self.allTravelCityContent[battle.wxStorageManager.nextTravelIndex]);
+            });
+
         }
     },
 

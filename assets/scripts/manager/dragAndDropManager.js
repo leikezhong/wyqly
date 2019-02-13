@@ -18,16 +18,17 @@ cc.Class({
     },
 
     initDAD:function(){
-        let children = battle.mainScene.transportLayer.children;
-        for(let i = 0; i < children.length; i++){
-            children[i].on(cc.Node.EventType.TOUCH_START, this.startMoveFunc, this);
-            children[i].on(cc.Node.EventType.TOUCH_MOVE, this.onMoveFunc, this);
-            children[i].on(cc.Node.EventType.TOUCH_END, this.endMoveFunc, this);
-            children[i].on(cc.Node.EventType.TOUCH_CANCEL, this.endMoveFunc, this);
-            children[i].touchIndex = i;
-            children[i].transportItem = children[i].getComponent("transportItem");
-            children[i].transportItem.setShow(false);
-            this.allDADItem.push(children[i]);
+        for(let i = 0; i < 16; ++i){
+            let item = cc.instantiate(battle.mainScene.transportPrefab);
+            battle.mainScene.transportLayer.addChild(item);
+            item.on(cc.Node.EventType.TOUCH_START, this.startMoveFunc, this);
+            item.on(cc.Node.EventType.TOUCH_MOVE, this.onMoveFunc, this);
+            item.on(cc.Node.EventType.TOUCH_END, this.endMoveFunc, this);
+            item.on(cc.Node.EventType.TOUCH_CANCEL, this.endMoveFunc, this);
+            item.touchIndex = i;
+            item.transportItem = item.getComponent("transportItem");
+            item.transportItem.setShow(false);
+            this.allDADItem.push(item);
         }
 
         for(let j = 0; j < battle.wxStorageManager.nowAllItems.length; j++){

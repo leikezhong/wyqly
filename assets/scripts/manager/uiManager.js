@@ -1,6 +1,7 @@
 cc.Class({
     init:function(){
         this.floatTipArr = [];
+        this.loadingTime = 0;
     },
 
     initUI:function(){
@@ -21,17 +22,34 @@ cc.Class({
         }
     },
 
-    showUI:function(uiName, dir){
-        if(this[uiName] == null){
-            if(dir){
-                this[uiName] = cc.instantiate(cc.loader.getRes("prefab/" + dir + "/" + uiName));
-            }else{
-                this[uiName] = cc.instantiate(cc.loader.getRes("prefab/" + uiName));
-            }
-            this[uiName][uiName] = this[uiName].getComponent(uiName);
-            battle.layerManager.normalLayer.addChild(this[uiName]);
+    showUI:function(uiName, dir, layer, callback){
+        console.log("---uiName:" + uiName + "---");
+        let self = this;
+        if(!uiLoading.active) {
+            clearTimeout(this.loadingTime);
+            this.loadingTime = setTimeout(function () {
+                uiLoading.active = true;
+            }, 1000);
         }
-        this[uiName][uiName].setShow();
-        return this[uiName];
+        let path = "";
+        if(dir){
+            path = "prefab/" + dir + "/" + uiName;
+        }else{
+            path = "prefab/" + uiName;
+        }
+        cc.loader.loadRes(path, function (errorMessage, loadedResource) {
+            self[uiName] = cc.instantiate(loadedResource);
+            layer.addChild(self[uiName]);
+            self[uiName][uiName] = self[uiName].getComponent(uiName);
+            if(self[uiName][uiName]) {
+                self[uiName][uiName].setShow();
+            }
+            if(self.loadingTime){
+                clearTimeout(self.loadingTime);
+                uiLoading.active = false;
+                self.loadingTime = null;
+            }
+            callback && callback(self[uiName]);
+        });
     }
 });

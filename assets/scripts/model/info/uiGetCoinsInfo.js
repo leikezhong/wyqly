@@ -1,11 +1,10 @@
-let uiBase = require("uiBase");
 cc.Class({
     extends: uiBase,
 
     properties: {
         getCoinsNum:cc.Label,
 
-        _getCoinsNum:0,
+        _getCoinsNum:0
     },
 
     setShow:function(){
@@ -22,9 +21,9 @@ cc.Class({
         this.getCoinsNum.string = "Get " + this._getCoinsNum + " Coins!";
     },
 
-    getCoinsFunc:function(event){
+    click_getCoinsBtn:function(){
         battle.wxStorageManager.changeCoins(this._getCoinsNum);
         NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
-        this.setHide();
+        this.onClose();
     }
 });

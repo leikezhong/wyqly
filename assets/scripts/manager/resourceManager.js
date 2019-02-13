@@ -6,7 +6,19 @@ cc.Class({
     loadResource:function(callback){
         let path = [
             {
-                name:"prefab",
+                name:"prefab/scene",
+                type:"folder"
+            },
+            {
+                name:"dragonbone",
+                type:"folder"
+            },
+            {
+                name:"map",
+                type:"folder"
+            },
+            {
+                name:"prefab/tip",
                 type:"folder"
             },
             {
@@ -33,6 +45,7 @@ cc.Class({
                         battle.jsonManager.initJson(asset[i]);
                     }
                 }
+                self.nowProgressNum++;
                 if (path.length == 0) {
                     callback();
                 } else {
@@ -41,6 +54,7 @@ cc.Class({
             });
         }else if(nowPath.type == "scene"){
             cc.loader.loadRes(nowPath.name, (err, res) => {
+                self.nowProgressNum++;
                 if (path.length == 0) {
                     callback();
                 } else {

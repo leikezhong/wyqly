@@ -83,7 +83,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 900,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -146,7 +146,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 123,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -176,7 +176,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "21jr+q9kZI6brbI5nSDUcI"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -248,7 +248,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 124,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -271,11 +271,12 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
-    "_id": "94yGwBHVRDBbBn0e64gXE6"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -347,7 +348,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 125,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -370,11 +371,12 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 0,
     "_N$verticalAlign": 0,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
-    "_id": "d10jbSS2JN6rEvN43HvdIU"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -389,7 +391,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "adventureBtn",
+    "_name": "closeBtn",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -453,7 +455,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 126,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -516,7 +518,7 @@
     },
     "_skewX": 0,
     "_skewY": 0,
-    "_localZOrder": 0,
+    "_zIndex": 0,
     "groupIndex": 0,
     "_id": ""
   },
@@ -539,11 +541,12 @@
     "_N$file": null,
     "_isSystemFontUsed": true,
     "_spacingX": 0,
+    "_batchAsBitmap": false,
     "_N$horizontalAlign": 1,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 1,
-    "_id": "3ccWoR9ndIgKa01gAFdKPj"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -582,7 +585,7 @@
     "_isTrimmedMode": true,
     "_state": 0,
     "_atlas": null,
-    "_id": "5elHySaMlNu4ess15LqbVN"
+    "_id": ""
   },
   {
     "__type__": "cc.Button",
@@ -592,21 +595,6 @@
       "__id__": 11
     },
     "_enabled": true,
-    "transition": 3,
-    "pressedColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "hoverColor": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
     "duration": 0.1,
     "zoomScale": 0.9,
     "clickEvents": [
@@ -616,7 +604,37 @@
     ],
     "_N$interactable": true,
     "_N$enableAutoGrayEffect": false,
+    "_N$transition": 3,
+    "transition": 3,
     "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_N$pressedColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "pressedColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_N$hoverColor": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
@@ -651,14 +669,15 @@
     "_N$target": {
       "__id__": 11
     },
-    "_id": "43tG74uOZF/5nrij4Aq2sF"
+    "_id": ""
   },
   {
     "__type__": "cc.ClickEvent",
     "target": {
       "__id__": 1
     },
-    "component": "uiAdventureInfo",
+    "component": "",
+    "_componentId": "b3c7afguDFBrbhl+i6Uj51H",
     "handler": "closeInfoFunc",
     "customEventData": ""
   },
@@ -681,16 +700,8 @@
       "__id__": 1
     },
     "_enabled": true,
-    "adventurePic": {
-      "__id__": 3
-    },
-    "adventureTitle": {
-      "__id__": 6
-    },
-    "adventureContent": {
-      "__id__": 9
-    },
-    "_id": "d5oc/oBa9N9pzmHoycC5Hq"
+    "_isShow": true,
+    "_id": ""
   },
   {
     "__type__": "cc.Button",
@@ -700,7 +711,27 @@
       "__id__": 1
     },
     "_enabled": true,
+    "duration": 0.1,
+    "zoomScale": 1.2,
+    "clickEvents": [],
+    "_N$interactable": false,
+    "_N$enableAutoGrayEffect": false,
+    "_N$transition": 0,
     "transition": 0,
+    "_N$normalColor": {
+      "__type__": "cc.Color",
+      "r": 214,
+      "g": 214,
+      "b": 214,
+      "a": 255
+    },
+    "_N$pressedColor": {
+      "__type__": "cc.Color",
+      "r": 211,
+      "g": 211,
+      "b": 211,
+      "a": 255
+    },
     "pressedColor": {
       "__type__": "cc.Color",
       "r": 211,
@@ -708,23 +739,18 @@
       "b": 211,
       "a": 255
     },
-    "hoverColor": {
+    "_N$hoverColor": {
       "__type__": "cc.Color",
       "r": 255,
       "g": 255,
       "b": 255,
       "a": 255
     },
-    "duration": 0.1,
-    "zoomScale": 1.2,
-    "clickEvents": [],
-    "_N$interactable": false,
-    "_N$enableAutoGrayEffect": false,
-    "_N$normalColor": {
+    "hoverColor": {
       "__type__": "cc.Color",
-      "r": 214,
-      "g": 214,
-      "b": 214,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_N$disabledColor": {
@@ -743,7 +769,7 @@
     "_N$target": {
       "__id__": 1
     },
-    "_id": "2bEcXqxfxAE4/6izllwxnj"
+    "_id": ""
   },
   {
     "__type__": "cc.PrefabInfo",

@@ -1,33 +1,32 @@
 cc.Class({
-    extends: cc.Component,
+    extends: uiBase,
     properties: {
         isShow:true,
-        transportSp:cc.Sprite,
-        transportLabel:cc.Label,
 
-        nowLevel:0,
+        nowLevel:0
     },
 
     onLoad:function(){
+        this._super();
         this.transportLabel.string = this.nowLevel;
     },
 
     setShow:function(value){
         if(this.isShow != value){
             this.isShow = value;
-            this.transportSp.node.active = value;
-            this.transportLabel.node.active = value;
+            this.transportSp.active = value;
+            this.transportLabel.active = value;
         }
     },
 
     addTransportLevel:function(){
         this.nowLevel++;
-        this.transportLabel.string = this.nowLevel;
+        this.transportLabel.getComponent(cc.Label).string = this.nowLevel;
     },
 
     setTransportLevel:function(level){
         this.nowLevel = level;
-        this.transportLabel.string = this.nowLevel;
+        this.transportLabel.getComponent(cc.Label).string = this.nowLevel;
     },
 
     onCollisionEnter: function (other, self) {

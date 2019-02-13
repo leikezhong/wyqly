@@ -20,15 +20,16 @@ cc.Class({
             let adventureIndex = Math.floor(Math.random() * this.allAdventure.length);
             let nowAdventure = this.allAdventure[adventureIndex];
             this.allAdventure.splice(adventureIndex, 1);
-            let adventureInfo = cc.instantiate(cc.loader.getRes("prefab/info/uiAdventureInfo"));
-            adventureInfo.uiAdventureInfo = adventureInfo.getComponent("uiAdventureInfo");
-            battle.layerManager.bottomTipLayer.addChild(adventureInfo);
 
-            adventureIndex = battle.configManager.allAdventure.indexOf(nowAdventure);
-            battle.wxStorageManager.nowAdventure.push(adventureIndex);
-            battle.wxStorageManager.nowAdventure.sort(this.sortNumber);
-            battle.wxStorageManager.setStorage("allAdventure");
-            adventureInfo.uiAdventureInfo.setAdventureInfo(battle.configManager.allAdventure[adventureIndex], battle.configManager.allAdventureContent[adventureIndex]);
+            let self = this;
+            battle.uiManager.showUI("uiAdventureInfo", "info", battle.layerManager.normalLayer, function (node) {
+                adventureIndex = battle.configManager.allAdventure.indexOf(nowAdventure);
+                battle.wxStorageManager.nowAdventure.push(adventureIndex);
+                battle.wxStorageManager.nowAdventure.sort(self.sortNumber);
+                battle.wxStorageManager.setStorage("allAdventure");
+                node.uiAdventureInfo.setAdventureInfo(battle.configManager.allAdventure[adventureIndex], battle.configManager.allAdventureContent[adventureIndex]);
+            });
+
             // console.log(battle.wxStorageManager.nowAdventure);
         }
     },

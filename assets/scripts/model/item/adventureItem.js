@@ -1,5 +1,5 @@
 cc.Class({
-    extends: cc.Component,
+    extends: uiBase,
 
     properties: {
         adventureSp:cc.Sprite,

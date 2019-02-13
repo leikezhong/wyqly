@@ -1,42 +1,14 @@
-window.battle = window.battle || {};
 cc.Class({
-    extends: cc.Component,
+    extends: uiBase,
 
     properties: {
-        uiLayer:cc.Node,
-        progressLayer:cc.Node,
-        progressBar:cc.Node,
-        startBtn:cc.Node
+
     },
 
     onLoad () {
-        this.initManager();
+        this._super();
         this.initWX();
         this.initResource();
-    },
-    
-    initManager:function(){
-        this.allManager = [
-            "configManager",
-            "jsonManager",
-            "resourceManager",
-            "layerManager",
-            "battleManager",
-            "adventureManager",
-            "wxManager",
-            "wxCloudManager",
-            "wxStorageManager",
-            "uiManager",
-            "dragAndDropManager",
-            "exploreManager",
-            "foodManager"
-        ];
-
-        for(let i = 0; i < this.allManager.length; i++){
-            let manager = require(this.allManager[i]);
-            battle[this.allManager[i]] = new manager();
-            battle[this.allManager[i]].init();
-        }
     },
 
     initResource:function(){
@@ -78,10 +50,6 @@ cc.Class({
         this.uiLayer.active = true;
     },
 
-    startGameFunc:function (event) {
-        this.nextStartGame();
-    },
-
     wxLogin:function (btnNode) {
         if(CC_WECHATGAME){
             var self = this;
@@ -115,13 +83,13 @@ cc.Class({
                             fontSize: 16,
                             borderRadius: 4
                         }
-                    })
+                    });
                     button.onTap((res) => {
                         console.log("onTap: ",res);
                         if (res.userInfo) {
                             button.hide();
                             battle.wxManager.userInfo = res.userInfo;
-                            self.nextStartGame();
+                            self.click_startBtn();
                             console.log("wxLogin auth success");
                             // wx.showToast({title:"授权成功"});
                         }else {
@@ -134,12 +102,15 @@ cc.Class({
         }
     },
 
-    nextStartGame:function(){
+    click_startBtn:function(){
         if(!CC_WECHATGAME){
             battle.wxManager.userInfo.avatarUrl = "http://wx.qlogo.cn/mmopen/vi_32/1vZvI39NWFQ9XM4LtQpFrQJ1xlgZxx3w7bQxKARol6503Iuswjjn6nIGBiaycAjAtpujxyzYsrztuuICqIM5ibXQ/0";
             battle.wxManager.userInfo.nickName = "测试";
         }
-        cc.director.loadScene("mainScene");
+        let self = this;
+        battle.uiManager.showUI("mainSceneNode", "scene", battle.layerManager.rootNode, function () {
+            self.onClose();
+        });
     },
 
     update (dt) {
