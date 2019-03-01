@@ -16,6 +16,7 @@ cc.Class({
         }else{
             this.initLocal();
         }
+        battle.battleManager.initBattle();
     },
 
     initWeChat:function(){
@@ -54,7 +55,6 @@ cc.Class({
 
     initLocal:function(){
         battle.wxStorageManager.initLocalStorage();
-        battle.battleManager.initBattle();
     },
 
     updateMaxMeter:function(){

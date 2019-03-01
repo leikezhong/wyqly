@@ -89,16 +89,18 @@ cc.Class({
     },
 
     mapMoveStep: function () {
-        for(let i = this.maps.length - 1; i >= 0; --i){
-            this.maps[i].x -= this.mapSpeed;
-        }
+        if(this.maps){
+            for(let i = this.maps.length - 1; i >= 0; --i){
+                this.maps[i].x -= this.mapSpeed;
+            }
 
-        //第一张图
-        if(this.maps.length > 0) {
-            if (this.maps[0].x < -this.maps[0].width - 100) {
-                let map = this.maps.splice(0, 1)[0];
-                map.x = this.maps[this.maps.length - 1].x + this.maps[this.maps.length - 1].width;
-                this.maps.push(map);
+            //第一张图
+            if(this.maps.length > 0) {
+                if (this.maps[0].x < -this.maps[0].width - 100) {
+                    let map = this.maps.splice(0, 1)[0];
+                    map.x = this.maps[this.maps.length - 1].x + this.maps[this.maps.length - 1].width;
+                    this.maps.push(map);
+                }
             }
         }
     },

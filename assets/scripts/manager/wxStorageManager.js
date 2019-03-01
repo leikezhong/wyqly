@@ -109,9 +109,12 @@ cc.Class({
     },
 
     getFirstStorage:function(callback){
-        let self = this, allStorageName = this.initStorageName.concat();
-        if(allStorageName.length > 0){
-            this.initLocalStorage(allStorageName.shift(), function(){
+        let self = this;
+        if(!this.allStorageName){
+            this.allStorageName = this.initStorageName.concat();
+        }
+        if(this.allStorageName.length > 0){
+            this.initFirstStorage(this.allStorageName.shift(), function(){
                 self.getFirstStorage(callback);
             });
         }else{
@@ -119,7 +122,7 @@ cc.Class({
         }
     },
 
-    initLocalStorage:function(keyValue, callback){
+    initFirstStorage:function(keyValue, callback){
         // if(!CC_WECHATGAME)  return;
         if(this.transferStorageName.indexOf(keyValue) != -1){
             this[keyValue] = JSON.parse(cc.sys.localStorage.getItem(keyValue));

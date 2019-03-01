@@ -27,13 +27,13 @@
     "default",
     "transport"
   ],
-  "last-module-event-record-time": 1550055685198,
+  "last-module-event-record-time": 1551449318405,
   "simulator-orientation": false,
   "simulator-resolution": {
     "height": 640,
     "width": 960
   },
-  "start-scene": "19899b8a-8808-49ff-b588-55c73263c9f9",
+  "start-scene": "3248abc9-66c5-4a88-9e5a-4665189d597d",
   "use-customize-simulator": false,
   "use-project-simulator-setting": false
 }

@@ -23,10 +23,10 @@ var uiBase = cc.Class({
         if (nodeName) {
             this[nodeName] = node;
             if(nodeName == "closeBtn"){
-                node.on(cc.Node.EventType.TOUCH_START, this.onClose, this);
+                node.on(cc.Node.EventType.TOUCH_END, this.onClose, this);
             }else {
                 if (node.getComponent(cc.Button)) {
-                    node.on(cc.Node.EventType.TOUCH_START, this.onClickBtn, this);
+                    node.on(cc.Node.EventType.TOUCH_END, this.onClickBtn, this);
                 }
             }
             this.allMountChild.push(nodeName);
