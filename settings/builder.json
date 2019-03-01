@@ -13,7 +13,7 @@
   "includeSDKBox": false,
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": true,
-  "md5Cache": false,
+  "md5Cache": true,
   "mergeStartScene": false,
   "optimizeHotUpdate": false,
   "orientation": {
@@ -31,7 +31,7 @@
   "title": "wyqly",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "",
+    "REMOTE_SERVER_ROOT": "https://wyqly-1258624294.cos.ap-chengdu.myqcloud.com",
     "appid": "wx1d3ed427165712ea",
     "isSubdomain": false,
     "orientation": "portrait",

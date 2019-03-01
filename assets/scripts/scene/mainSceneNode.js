@@ -25,13 +25,15 @@ cc.Class({
 
     initWXInfo:function(){
         var self = this;
-        cc.loader.load({url: battle.wxManager.userInfo.avatarUrl, type: 'jpg'},
-            function (err, texture) {
-                self.wxHead.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
-                self.wxHead.width = 60;
-                self.wxHead.height = 60;
-            }
-        );
+        if(battle.wxManager.userInfo.avatarUrl){
+            cc.loader.load({url: battle.wxManager.userInfo.avatarUrl, type: 'jpg'},
+                function (err, texture) {
+                    self.wxHead.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture);
+                    self.wxHead.width = 60;
+                    self.wxHead.height = 60;
+                }
+            );
+        }
         this.wxName.getComponent(cc.Label).string = battle.wxManager.userInfo.nickName;
     },
 
