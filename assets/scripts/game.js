@@ -13,14 +13,10 @@ cc.Class({
             "resourceManager",
             "layerManager",
             "battleManager",
-            "adventureManager",
             "wxManager",
             "wxCloudManager",
             "wxStorageManager",
-            "uiManager",
-            "dragAndDropManager",
-            "exploreManager",
-            "foodManager"
+            "uiManager"
         ];
 
         for(let i = 0; i < this.allManager.length; i++){

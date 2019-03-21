@@ -15,10 +15,18 @@ cc.Class({
         this.nowCollection = this.db.collection('wyqly');
         this.nowDoc = null;
         this.nowDocInfo = null;
-    },
 
-    setCloudInfo:function(){
+        var self = this;
+        this.nowCollection.where({
 
+        }).get({
+            success(res){
+                if(res.data.length > 0){
+                    //has cloud info
+                    self.nowDoc = self.nowCollection.doc(res.data[0]._id);
+                }
+            }
+        })
     },
 
     //init storage fail and try get cloud data
@@ -68,6 +76,19 @@ cc.Class({
             }
         });
     },
+
+    //更新云开发数据
+    updateCloudInfo:function(){
+        if(!CC_WECHATGAME)  return;
+        this.nowDoc.update({
+            // data 字段表示需新增的 JSON 数据
+            data: battle.wxStorageManager.getNowDataStorage(),
+            success(res) {
+                // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+                console.log("update info success!");
+            }
+        });
+    }
 
     // getCityAddress:function(){
     //     var self = this;

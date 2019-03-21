@@ -108,7 +108,7 @@ cc.Class({
             battle.wxManager.userInfo.nickName = "测试";
         }
         let self = this;
-        battle.uiManager.showUI("mainSceneNode", "scene", battle.layerManager.rootNode, function () {
+        battle.uiManager.showUI("mainSceneNode", "scene", battle.layerManager.mainLayer, function () {
             self.onClose();
         });
     },

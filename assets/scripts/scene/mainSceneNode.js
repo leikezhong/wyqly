@@ -11,15 +11,6 @@ cc.Class({
         battle.mainScene = this;
         this.initWXInfo();
         this.initEvent();
-        if(CC_WECHATGAME){
-            this.initWeChat();
-        }else{
-            this.initLocal();
-        }
-        battle.battleManager.initBattle();
-    },
-
-    initWeChat:function(){
         this.initAllInfo();
     },
 
@@ -39,47 +30,11 @@ cc.Class({
 
     initEvent:function(){
         //更新ui
-        NOTIFICATION.on(EVENT.UPDATE_MAX_METER, this.updateMaxMeter, this);
-        NOTIFICATION.on(EVENT.UPDATE_NOW_SPEED, this.updateNowSpeed, this);
-        NOTIFICATION.on(EVENT.UPDATE_NOW_COINS, this.updateNowCoins, this);
-        NOTIFICATION.on(EVENT.UPDATE_COINS_SPEED, this.updateCoinsSpeed, this);
-        NOTIFICATION.on(EVENT.UPDATE_ALL_INFO, this.updateAllInfo, this);
+        // NOTIFICATION.on(EVENT.UPDATE_MAX_METER, this.updateMaxMeter, this);
     },
 
     initAllInfo:function(){
         battle.wxManager.initStorage();
-    },
-
-    initComplete:function(){
-        console.log("init complete");
-        battle.battleManager.initBattle();
-    },
-
-    initLocal:function(){
-        battle.wxStorageManager.initLocalStorage();
-    },
-
-    updateMaxMeter:function(){
-        this.maxMeter.getComponent(cc.Label).string = "maxMeter:" + battle.wxStorageManager.nowMaxMeter + "m";
-    },
-
-    updateNowSpeed:function(){
-        this.nowSpeed.getComponent(cc.Label).string = "speed:" + battle.wxStorageManager.nowSpeed + "m/s";
-    },
-
-    updateNowCoins:function(){
-        this.nowCoins.getComponent(cc.Label).string = "coins:" + battle.wxStorageManager.nowCoins;
-    },
-
-    updateCoinsSpeed:function(){
-        this.coinsSpeed.getComponent(cc.Label).string = "coinsSpeed:" + battle.battleManager.battleSecondCoins + "/s";
-    },
-
-    updateAllInfo:function(){
-        this.updateMaxMeter();
-        this.updateNowSpeed();
-        this.updateNowCoins();
-        this.updateCoinsSpeed();
     },
 
     startShareFunc:function(){
@@ -110,16 +65,14 @@ cc.Class({
     },
 
     click_buyTransport: function () {
-        battle.battleManager.buyTransport();
+        
     },
 
     click_adventureSystem: function () {
-        battle.uiManager.showUI("uiAdventureSystem", "system", battle.layerManager.normalLayer);
+        
     },
 
     update (dt) {
-        if(battle.battleManager){
-            battle.battleManager.step();
-        }
+        
     }
 });

@@ -42,6 +42,14 @@ cc.Class({
         return data;
     },
 
+    getNowDataStorage:function(){
+        let data = {};
+        for(let i = 0; i < this.initStorageName.length; i++){
+            data[this.initStorageName[i]] = this[this.initStorageName[i]];
+        }
+        return data;
+    },
+
     analysisCloudInfo:function(info){
         this.setStorage("isInit", true);
         for(let i = 0; i < this.initStorageName.length; i++){
@@ -132,28 +140,15 @@ cc.Class({
         if(callback){
             callback();
         }
-        // wx.getStorage({
-        //     key: keyValue,
-        //     success(res) {
-        //         console.log("get "+keyValue+" storage success!");
-        //         // console.log(res.data);
-        //         self[keyValue] = res.data;
-        //         if(callback){
-        //             callback();
-        //         }
-        //     },
-        //     fail(res){
-        //         console.log("get "+keyValue+" storage fail!");
-        //     }
-        // });
     },
 
+    //获得数据
     getStorage:function(keyValue){
         return this[keyValue];
     },
 
+    //保存数据
     setStorage:function(keyValue, keyData){
-        // if(!CC_WECHATGAME)  return;
         if(!keyData){
             keyData = this[keyValue];
         }
@@ -162,9 +157,5 @@ cc.Class({
         }else{
             cc.sys.localStorage.setItem(keyValue, keyData);
         }
-        // wx.setStorage({
-        //     key: keyValue,
-        //     data: keyData
-        // });
     }
 });
