@@ -5,9 +5,7 @@ cc.Class({
     },
 
     initUI:function(){
-        NOTIFICATION.emit(EVENT.UPDATE_MAX_METER);
-        NOTIFICATION.emit(EVENT.UPDATE_NOW_SPEED);
-        NOTIFICATION.emit(EVENT.UPDATE_NOW_COINS);
+        
     },
 
     showFloatTip:function(info){

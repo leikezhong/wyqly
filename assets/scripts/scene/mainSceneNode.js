@@ -73,6 +73,6 @@ cc.Class({
     },
 
     update (dt) {
-        
+        battle.battleManager.step(dt);
     }
 });
