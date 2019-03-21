@@ -31,7 +31,7 @@
   "title": "wyqly",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "https://wyqly-1258624294.cos.ap-chengdu.myqcloud.com",
+    "REMOTE_SERVER_ROOT": "https://wyqly-1258624294.cos.ap-chengdu.myqcloud.com/v1.0.1",
     "appid": "wx1d3ed427165712ea",
     "isSubdomain": false,
     "orientation": "portrait",

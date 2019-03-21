@@ -58,29 +58,6 @@ cc.Class({
         }
     },
 
-    removeItem:function(num){
-        var index = this.nowAllItems.indexOf(num);
-        if(index != -1){
-            this.nowAllItems.splice(index, 1);
-        }
-        this.setStorage("nowAllItems");
-    },
-
-    addItem:function(num){
-        this.nowAllItems.push(num);
-        this.analysisMaxLevel();
-        this.setStorage("nowAllItems");
-    },
-
-    changeCoins:function(addCoins){
-        this.nowCoins += addCoins;
-        this.setStorage("allCoins");
-        if(addCoins > 0) {
-            this.allCoins += addCoins;
-            this.setStorage("nowCoins");
-        }
-    },
-
     changeStorageValue: function (key, value) {
         this[key] += value;
         this.setStorage(key);
@@ -104,18 +81,6 @@ cc.Class({
         this.setStorage(key);
     },
 
-    analysisMaxLevel:function(){
-        for(let i = 0; i < this.nowAllItems.length; i++){
-            if(this.nowMaxLevel  < this.nowAllItems[i]){
-                this.nowMaxLevel = this.nowAllItems[i];
-                this.nowSpeed = battle.configManager.allTransportSpeed[this.nowMaxLevel - 1];
-                this.setStorage("nowMaxLevel");
-                this.setStorage("nowSpeed");
-                NOTIFICATION.emit(EVENT.UPDATE_NOW_SPEED);
-            }
-        }
-    },
-
     getFirstStorage:function(callback){
         let self = this;
         if(!this.allStorageName){
@@ -131,7 +96,6 @@ cc.Class({
     },
 
     initFirstStorage:function(keyValue, callback){
-        // if(!CC_WECHATGAME)  return;
         if(this.transferStorageName.indexOf(keyValue) != -1){
             this[keyValue] = JSON.parse(cc.sys.localStorage.getItem(keyValue));
         }else{
